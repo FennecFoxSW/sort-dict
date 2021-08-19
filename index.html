@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Sort Dict</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,700&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+
+  <body class="bg-dark" style="font-family: 'Noto Sans KR', sans-serif">
+    <div class="container text-center text-white py-3">
+      <h1 data-aos="zoom-out" data-aos-duration="300" class="fw-bold">
+        Sort Dict
+      </h1>
+      <p
+        class="lead text-white-50 fw-light"
+        data-aos="zoom-out"
+        data-aos-duration="300"
+      >
+        각 정렬 알고리즘의 실행 과정를 한눈에 비교합니다.
+      </p>
+      <button class="btn btn-primary mx-1" type="button">
+        배열 값 직접 입력</button
+      ><button class="btn btn-primary mx-1" type="button">섞기</button
+      ><button class="btn btn-primary mx-1" type="button">시작</button>
+      <hr />
+      <label class="form-label" for="delay-range"
+        >각 연산 간 지연시간:&nbsp;<span id="delay-preview">ms</span></label
+      ><input
+        class="form-range"
+        type="range"
+        id="delay-range"
+        min="50"
+        max="500"
+        step="50"
+      />
+      <hr />
+    </div>
+    <div class="container">
+      <div class="row my-3">
+        <div class="col">
+          <div
+            class="card border-0 shadow rounded-3"
+            data-aos="fade-up"
+            data-aos-once="true"
+            data-sort="bubble"
+          >
+            <div class="card-body">
+              <h4 class="card-title">거품 정렬</h4>
+              <h6 class="text-muted card-subtitle mb-2">Bubble Sort</h6>
+              <p class="card-text">
+                <span class="overall-status"
+                  >0회 비교됨 / 0회 배열 요소 교체됨</span
+                ><br />
+              </p>
+              <p class="lead card-text array-value">
+                1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div
+            class="card border-0 shadow rounded-3"
+            data-aos="fade-up"
+            data-aos-delay="50"
+            data-aos-once="true"
+            data-sort="selection"
+          >
+            <div class="card-body">
+              <h4 class="card-title">선택 정렬</h4>
+              <h6 class="text-muted card-subtitle mb-2">
+                Selection Sort<br />
+              </h6>
+              <p class="card-text">
+                <span class="overall-status"
+                  >0회 비교됨 / 0회 배열 요소 교체됨</span
+                ><br />
+              </p>
+              <p class="lead card-text array-value">
+                1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col">
+          <div
+            class="card border-0 shadow rounded-3"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            data-aos-once="true"
+            data-sort="insertion"
+          >
+            <div class="card-body">
+              <h4 class="card-title">삽입 정렬</h4>
+              <h6 class="text-muted card-subtitle mb-2">Insertion Sort</h6>
+              <p class="card-text">
+                <span class="overall-status"
+                  >0회 비교됨 / 0회 배열 요소 교체됨</span
+                ><br />
+                <span class="log"
+                  >(삽입 정렬은 로그를 지원하지 않음)<br
+                /></span>
+              </p>
+              <p class="lead card-text array-value">
+                1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div
+            class="card border-0 shadow rounded-3"
+            data-aos="fade-up"
+            data-aos-delay="150"
+            data-aos-once="true"
+            data-sort="quick"
+          >
+            <div class="card-body">
+              <h4 class="card-title">퀵 정렬</h4>
+              <h6 class="text-muted card-subtitle mb-2">Quicksort</h6>
+              <p class="card-text">
+                <span class="overall-status"
+                  >0회 비교됨 / 0회 배열 요소 교체됨</span
+                ><br />
+              </p>
+              <p class="lead card-text array-value">
+                1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js"></script>
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>
