@@ -196,3 +196,5 @@ async function quickSort(
     quickSort(array, i + 1, right, false, compareCount, swapCount);
   }
 }
+
+// TODO: Run at same time
