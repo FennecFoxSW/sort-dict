@@ -1,4 +1,4 @@
-/* eslint no-await-in-loop: 0 */
+/* eslint no-await-in-loop: 0, no-alert: 0 */
 
 document.addEventListener('DOMContentLoaded', () => {
   AOS.init();
@@ -71,6 +71,9 @@ function swap(sortName, array, aIndex, bIndex) {
 
 // 정렬
 
+let delay = 100;
+let toSortArray = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+
 async function bubbleSort(_array) {
   const sortName = 'bubble';
   let array = _array;
@@ -83,13 +86,13 @@ async function bubbleSort(_array) {
       const compareResult = compare(sortName, array, j, j + 1);
       compareCount += 1;
       changeStatus(sortName, compareCount, swapCount);
-      await sleep(100);
+      await sleep(delay);
       if (compareResult) {
         array = swap(sortName, array, j, j + 1);
         swapCount += 1;
         changeStatus(sortName, compareCount, swapCount);
+        await sleep(delay);
       }
-      await sleep(100);
     }
   }
 }
@@ -107,13 +110,13 @@ async function selectionSort(_array) {
       const compareResult = !compare(sortName, array, j, minIndex);
       compareCount += 1;
       changeStatus(sortName, compareCount, swapCount);
-      await sleep(100);
+      await sleep(delay);
       if (compareResult) minIndex = j;
     }
     array = swap(sortName, array, minIndex, i);
     swapCount += 1;
     changeStatus(sortName, compareCount, swapCount);
-    await sleep(100);
+    await sleep(delay);
   }
 }
 
@@ -129,11 +132,11 @@ async function insertionSort(_array) {
       array[insertIndex + 1] = array[insertIndex];
       insertIndex -= 1;
       changeArrayValue(sortName, array);
-      await sleep(100);
+      await sleep(delay);
     }
     array[insertIndex + 1] = insertKey;
     changeArrayValue(sortName, array);
-    await sleep(100);
+    await sleep(delay);
   }
 }
 
@@ -161,40 +164,80 @@ async function quickSort(
       let rightCompareResult = compare(sortName, positionArray, j, pivotIndex);
       compareCount += 1;
       changeStatus(sortName, compareCount, swapCount);
-      await sleep(100);
+      await sleep(delay);
       while (rightCompareResult) {
         j -= 1;
         rightCompareResult = compare(sortName, positionArray, j, pivotIndex);
         compareCount += 1;
         changeStatus(sortName, compareCount, swapCount);
-        await sleep(100);
+        await sleep(delay);
       }
       let leftCompareResult = !compare(sortName, positionArray, i, pivotIndex);
       compareCount += 1;
       changeStatus(sortName, compareCount, swapCount);
-      await sleep(100);
+      await sleep(delay);
       while (i < j && leftCompareResult) {
         i += 1;
         leftCompareResult = !compare(sortName, positionArray, i, pivotIndex);
         compareCount += 1;
         changeStatus(sortName, compareCount, swapCount);
-        await sleep(100);
+        await sleep(delay);
       }
 
       swap(sortName, positionArray, i, j);
       swapCount += 1;
       changeStatus(sortName, compareCount, swapCount);
-      await sleep(100);
+      await sleep(delay);
     }
     positionArray[left] = positionArray[j];
     positionArray[j] = positionArray[pivotIndex];
   };
 
   if (left < right) {
-    const i = postition(array, left, right);
-    quickSort(array, left, i - 1, false, compareCount, swapCount);
-    quickSort(array, i + 1, right, false, compareCount, swapCount);
+    const pos = postition(array, left, right);
+    quickSort(array, left, pos - 1, false, compareCount, swapCount);
+    quickSort(array, pos + 1, right, false, compareCount, swapCount);
   }
 }
 
-// TODO: Run at same time
+// 배열 값, 섞기, 시작 이벤트
+
+const setArrayButton = document.getElementById('set-array-button');
+const shuffleButton = document.getElementById('shuffle-button');
+const startButton = document.getElementById('start-button');
+const delayRange = document.getElementById('delay-range');
+
+setArrayButton.addEventListener('click', () => {
+  let inputArray = prompt(
+    '배열의 요소들을 ,로 구분해 입력해주세요.',
+    '9,8,7,6,5,4,3,2,1,0'
+  );
+  inputArray = inputArray.replaceAll(' ', '').split(',');
+  toSortArray = inputArray.map((elem) => parseInt(elem, 10));
+  console.log(toSortArray);
+});
+
+shuffleButton.addEventListener('click', () => {
+  toSortArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+});
+
+startButton.addEventListener('click', async () => {
+  const bubbleSortArray = Object.assign([], toSortArray);
+  const insertionSortArray = Object.assign([], toSortArray);
+  const selectionSortArray = Object.assign([], toSortArray);
+  const quickSortArray = Object.assign([], toSortArray);
+  await Promise.all([
+    bubbleSort(bubbleSortArray),
+    insertionSort(insertionSortArray),
+    selectionSort(selectionSortArray),
+    quickSort(quickSortArray, 0, quickSortArray.length - 1, true),
+  ]);
+});
+
+delayRange.addEventListener('change', (event) => {
+  delay = event.target.value;
+  document.getElementById('delay-preview').innerHTML = `${delay}ms`;
+});
